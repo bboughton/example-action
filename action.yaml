@@ -14,9 +14,12 @@ runs:
   using: 'composite'
   steps:
     - run: ./check_git_repo.sh
+      shell: bash
     - run: ./check_version_category_label.sh
+      shell: bash
       id: version-category
     - name: release
+      shell: bash
       id: release
       if: steps.version-category.outputs.category != 'none'
       env:
