@@ -13,8 +13,8 @@ runs:
         ls
         ls ..
       shell: bash
-    - run: ./check_git_repo.sh
+    - run: ${{ github.action_path }}/../check_git_repo.sh
       shell: bash
-    - run: ./check_version_category_label.sh
+    - run: ${{ github.action_path }}/../check_version_category_label.sh
       shell: bash
       id: version-category
