@@ -2,6 +2,11 @@
 
 set -e
 
+if [ -z "$PR_NUMBER" ]; then
+  echo >&2 "::error::Required env var PR_NUMBER is missing."
+  exit 1
+fi
+
 labels=$(gh pr view "$PR_NUMBER" --json labels --jq '.labels[] | .name')
 category=$(echo "$labels" | grep -Ee '^release/(major|minor|patch|none)$' || echo -n "")
 
