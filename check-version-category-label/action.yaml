@@ -1,0 +1,13 @@
+name: 'Check Version Category Label'
+description: 'Check that the current PR has a properly formatted version category label'
+
+outputs:
+  category:
+    description: 'The version category specified by the label, valid options [major, minor, patch, none]'
+
+runs:
+  using: 'composite'
+  steps:
+    - run: ../check_git_repo.sh
+    - run: ../check_version_category_label.sh
+      id: version-category

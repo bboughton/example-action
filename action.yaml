@@ -1,0 +1,24 @@
+name: 'Release'
+description: 'Create releases when Pull Requests are merged.'
+inputs:
+  example-input:
+    description: 'An example input parameter'
+    required: false
+    default: 'Hello from Bash script'
+
+outputs:
+  tag:
+    description: 'Release tag'
+
+runs:
+  using: 'composite'
+  steps:
+    - run: ./check_git_repo.sh
+    - run: ./check_version_category_label.sh
+      id: version-category
+    - name: release
+      id: release
+      if: steps.version-category.outputs.category != 'none'
+      env:
+        VERSION_CATEGORY: ${{ steps.version-category.outputs.category }}
+      run: ./release.sh "$VERSION_CATEGORY"
