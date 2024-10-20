@@ -13,7 +13,12 @@ outputs:
 runs:
   using: 'composite'
   steps:
-    - run: ${{ github.action_path }}/../check_git_repo.sh
+    - run: |
+        # Check if the .git directory exists (indicating the repo has been checked out)
+        if [ ! -d ".git" ]; then
+          echo "::error::Repository has not been checked out. Please ensure 'actions/checkout' is included in the workflow."
+          exit 1
+        fi
       shell: bash
     - run: ${{ github.action_path }}/../check_version_category_label.sh
       env:
