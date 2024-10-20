@@ -8,8 +8,8 @@ outputs:
 runs:
   using: 'composite'
   steps:
-    - run: ../check_git_repo.sh
+    - run: ./check_git_repo.sh
       shell: bash
-    - run: ../check_version_category_label.sh
+    - run: ./check_version_category_label.sh
       shell: bash
       id: version-category
