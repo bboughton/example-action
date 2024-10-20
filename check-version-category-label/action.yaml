@@ -18,5 +18,6 @@ runs:
     - run: ${{ github.action_path }}/../check_version_category_label.sh
       env:
         PR_NUMBER: ${{ github.event.number }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       shell: bash
       id: version-category

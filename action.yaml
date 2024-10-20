@@ -24,6 +24,7 @@ runs:
     - run: ${{ github.action_path }}/check_version_category_label.sh
       env:
         PR_NUMBER: ${{ github.event.number }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       shell: bash
       id: version-category
     - name: release
@@ -32,5 +33,6 @@ runs:
       if: steps.version-category.outputs.category != 'none'
       env:
         VERSION_CATEGORY: ${{ steps.version-category.outputs.category }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PR_NUMBER: ${{ github.event.number }}
       run: ${{ github.action_path }}/release.sh "$VERSION_CATEGORY"
