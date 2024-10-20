@@ -1,11 +1,6 @@
 name: 'Check Version Category Label'
 description: 'Check that the current PR has a properly formatted version category label'
 
-inputs:
-  pr_number:
-    description: 'The Pull Request number associated with this action run.'
-    required: true
-
 outputs:
   category:
     description: 'The version category specified by the label, valid options [major, minor, patch, none]'
@@ -22,6 +17,6 @@ runs:
       shell: bash
     - run: ${{ github.action_path }}/../check_version_category_label.sh
       env:
-        PR_NUMBER: ${{ inputs.pr_number }}
+        PR_NUMBER: ${{ github.event.number }}
       shell: bash
       id: version-category

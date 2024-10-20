@@ -1,11 +1,6 @@
 name: 'Release'
 description: 'Create releases when Pull Requests are merged.'
 
-inputs:
-  pr_number:
-    description: 'The Pull Request number associated with this action run.'
-    required: true
-
 outputs:
   tag:
     description: 'Release tag'
@@ -28,7 +23,7 @@ runs:
       shell: bash
     - run: ${{ github.action_path }}/check_version_category_label.sh
       env:
-        PR_NUMBER: ${{ inputs.pr_number }}
+        PR_NUMBER: ${{ github.event.number }}
       shell: bash
       id: version-category
     - name: release
@@ -37,5 +32,5 @@ runs:
       if: steps.version-category.outputs.category != 'none'
       env:
         VERSION_CATEGORY: ${{ steps.version-category.outputs.category }}
-        PR_NUMBER: ${{ inputs.pr_number }}
+        PR_NUMBER: ${{ github.event.number }}
       run: ${{ github.action_path }}/release.sh "$VERSION_CATEGORY"
