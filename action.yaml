@@ -7,7 +7,7 @@ inputs:
     default: ${{ github.token }}
   pr_number:
     description: Pull Request associated with run.
-    defaults: ${{ github.event.number }}
+    default: ${{ github.event.number }}
 
 outputs:
   tag:
